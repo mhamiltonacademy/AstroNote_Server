@@ -9,5 +9,11 @@ app.register_blueprint(projects, url_prefix='/projects')
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Astronote'
 # db = SQLAlchemy(app)
 
+
+@app.route('/', methods=['GET'])
+def get_all_users():
+    return 'HOMEPAGE'
+
+
 if __name__ == "__main__":
     app.run(debug=True)
