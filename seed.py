@@ -1,4 +1,8 @@
-from models import db, Engineer, Project, Task
+from app import create_app, db
+from app.models import Engineer, Project, Task 
+app = create_app()
+app.app_context().push()
+
 
 
 def test():
@@ -21,8 +25,7 @@ def test():
     )
     project = Project(
         name = "Frontend",
-        description = "Create a UI for Astronote",
-        is_complete = False
+        description = "Create a UI for Astronote"
     )
     
     task1 = Task(
@@ -62,6 +65,6 @@ def test():
 
     # print(ranffi.my_projects)
     # print(project.engineers)
-
+    print('Seeded Database!')
 
 test()

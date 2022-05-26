@@ -1,4 +1,7 @@
-from app import db
+from email.policy import default
+import flask_sqlalchemy
+from sqlalchemy import null
+from . import db
 
 
 engineer_projects= db.Table('engineer_projects',
@@ -15,6 +18,8 @@ class Task(db.Model):
     progress = db.Column(db.Integer)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
     engineer_id = db.Column(db.Integer, db.ForeignKey('engineer.id'))
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 
 
@@ -24,17 +29,18 @@ class Engineer(db.Model):
     password = db.Column(db.String(200))
     tasks = db.relationship('Task', backref = 'engineer')
     projects = db.relationship('Project', secondary = engineer_projects, backref = 'engineers')
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(200))
+    is_complete = db.Column(db.Integer, default=0)
     description = db.Column(db.String(2000))
-    is_complete = db.Column(db.Boolean)
     tasks = db.relationship('Task', backref = 'project')
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 
-
-
-db.create_all()
