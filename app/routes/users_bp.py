@@ -35,7 +35,18 @@ def get_user(user_id):
 # Update user
 @users.route('/<user_id>', methods=['PUT'])
 def update_user(user_id):
-    return 'update_user'
+    user = user = Engineer.query.filter_by(id = user_id).first()
+    data = request.get_json()
+    if user:
+        if 'name' in data:
+            user.name = data['name']
+        if 'password' in data:
+            # Todo password must be encrpyted when updated
+            user.password = data['password'] 
+        db.session.commit()
+        return 'updated user'
+    else:
+        return 'Error'
 
 # Delete user
 @users.route('/<user_id>', methods=['DELETE'])
@@ -90,7 +101,21 @@ def get_user_project(user_id, project_id):
 # Update user project
 @users.route('/<user_id>/projects/<project_id>', methods=['PUT'])
 def update_user_project(user_id, project_id):
-    return 'update_user_project'
+    user = Engineer.query.filter_by(id = user_id).first()
+    project = Project.query.filter_by(id = project_id).first()
+    data = request.get_json()
+    if project in user.projects:
+        if 'name' in data:
+            project.name = data['name']
+        if 'is_complete' in data:
+            project.is_complete = data['is_complete']
+        if 'description' in data:
+            project.description = data['description']
+    
+        db.session.commit()
+        return 'update_user_project'
+    else:
+        return 'Error'
 
 # Delete user project
 @users.route('/<user_id>/projects/<project_id>', methods=['DELETE'])
@@ -101,7 +126,7 @@ def delete_user_project(user_id, project_id):
             user.projects.remove(project)
             break
     db.session.commit()
-    return f'Deleted project with id {project_id} from database'
+    return f'Deleted project with id {project_id} from {user.name} list of projects'
 
 #################### Users/Tasks Routes ####################
 
