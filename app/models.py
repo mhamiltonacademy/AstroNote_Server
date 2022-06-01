@@ -1,6 +1,3 @@
-from email.policy import default
-import flask_sqlalchemy
-from sqlalchemy import null
 from . import db
 
 
@@ -13,7 +10,7 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(200))
     description = db.Column(db.String(2000))
-    deadline = db.Column(db.Date)
+    deadline = db.Column(db.String(20)) # Todo change to Date
     priority = db.Column(db.Integer)
     progress = db.Column(db.Integer)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
