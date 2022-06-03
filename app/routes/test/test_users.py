@@ -21,9 +21,9 @@ class TestUsers(unittest.TestCase):
         # why should this be 500 instead of 404?
         self.assertEqual(response.status_code, 500)
 
-# have trouble passing in the data
-# is it because of the way the URL is invoked?
-# create user
+# # have trouble passing in the data
+# # is it because of the way the URL is invoked?
+# # create user
     # def test_new_user(self):
     #     data = {
     #         'name': 'name',
@@ -39,12 +39,13 @@ class TestUsers(unittest.TestCase):
         response = requests.put(self.URL + '/1', json=data)
         self.assertEqual(response.status_code, 200)
 
+# # test not working properly. am I messing up the route?
     # def test_update_user_not_found(self):
     #     data = {
     #         'name': 'name_test',
     #         'password': 'password_test'}
     #     response = requests.put(self.URL + '/9999', json=data)
-    #     self.assertEqual(response.status_code, 404)
+    #     self.assertEqual(response.status_code, 500)
 
 # delete user
     def test_delete_user_found(self):
@@ -64,13 +65,13 @@ class TestUserProjects(unittest.TestCase):
         response = requests.get(self.URL + '/1/projects')
         self.assertEqual(response.status_code, 200)
 
-# create a user project
-    # def test_new_user_project(self):
-    #     data = {
-    #         'name': 'name',
-    #         'description': 'new description'}
-    #     response = requests.post(self.URL, json=data)
-    #     self.assertEqual(response.status_code, 200)
+# # create a user project
+#     def test_new_user_project(self):
+#         data = {
+#             'name': 'name',
+#             'description': 'new description'}
+#         response = requests.post(self.URL, json=data)
+#         self.assertEqual(response.status_code, 200)
 
 # update user project
     def test_update_user_project_found(self):
@@ -80,7 +81,6 @@ class TestUserProjects(unittest.TestCase):
             'description': 'new description'}
         response = requests.put(self.URL + '/1/projects/1', json=data)
         self.assertEqual(response.status_code, 200)
-    # test not working properly. am I messing up the route?
 
     def test_update_user_project_not_found(self):
         data = {
@@ -94,7 +94,6 @@ class TestUserProjects(unittest.TestCase):
     def test_delete_user_project_found(self):
         response = requests.delete(self.URL + '/1/projects/1')
         self.assertEqual(response.status_code, 200)
-# test not working properly. am I messing up the route?
 
     def test_delete_user_project_not_found(self):
         response = requests.delete(self.URL + '/9999/projects/9999')
