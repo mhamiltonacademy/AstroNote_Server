@@ -18,7 +18,6 @@ class TestUsers(unittest.TestCase):
 
     def test_single_user_not_found(self):
         response = requests.get(self.URL + '/9999')
-        # why should this be 500 instead of 404?
         self.assertEqual(response.status_code, 500)
 
 # # have trouble passing in the data
@@ -39,13 +38,9 @@ class TestUsers(unittest.TestCase):
         response = requests.put(self.URL + '/1', json=data)
         self.assertEqual(response.status_code, 200)
 
-# # test not working properly. am I messing up the route?
-    # def test_update_user_not_found(self):
-    #     data = {
-    #         'name': 'name_test',
-    #         'password': 'password_test'}
-    #     response = requests.put(self.URL + '/9999', json=data)
-    #     self.assertEqual(response.status_code, 500)
+    def test_update_user_not_found(self):
+        response = requests.put(self.URL + '/9999')
+        self.assertEqual(response.status_code, 400)
 
 # delete user
     def test_delete_user_found(self):
@@ -83,12 +78,8 @@ class TestUserProjects(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_update_user_project_not_found(self):
-        data = {
-            'name': 'name',
-            'is_complete': '1',
-            'description': 'new description'}
-        response = requests.put(self.URL + '/9999/projects/9999', json=data)
-        self.assertEqual(response.status_code, 500)
+        response = requests.put(self.URL + '/1/projects/9999')
+        self.assertEqual(response.status_code, 400)
 
 # delete user project
     def test_delete_user_project_found(self):

@@ -24,7 +24,7 @@ class TestProjects(unittest.TestCase):
     #         'progress': '1',
     #         'project_id': '2',
     #         'engineer_id': '2'}
-    #     response = requests.post(self.URL, json=data)
+    #     response = requests.post(self.URL + '/1/tasks', json=data)
     #     self.assertEqual(response.status_code, 200)
 
 # update a task in project
@@ -41,16 +41,8 @@ class TestProjects(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_update_project_not_found(self):
-        data = {
-            'name': 'name_test',
-            'description': 'description_test',
-            'deadline': '05/05/2020',
-            'priority': '1',
-            'progress': '1',
-            'project_id': '2',
-            'engineer_id': '2'}
-        response = requests.put(self.URL + '/9999/tasks/9999', json=data)
-        self.assertEqual(response.status_code, 500)
+        response = requests.put(self.URL + '/9999/tasks/9999')
+        self.assertEqual(response.status_code, 400)
 
 # delete a task in project
     def test_delete_project_found(self):
