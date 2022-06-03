@@ -187,3 +187,6 @@ cython_debug/
 
 **/venv
 **/*.sqlite
+
+# adding requirements.txt to .gitignore so that it doesn't change required versions
+requirements.txt

@@ -1,6 +1,7 @@
 import unittest
 import requests
 
+
 class TestUsers(unittest.TestCase):
     URL = 'http://127.0.0.1:5000/users'
 
@@ -14,11 +15,14 @@ class TestUsers(unittest.TestCase):
     def test_single_user_found(self):
         response = requests.get(self.URL + '/1')
         self.assertEqual(response.status_code, 200)
+
     def test_single_user_not_found(self):
         response = requests.get(self.URL + '/9999')
-        self.assertEqual(response.status_code, 500) # why should this be 500 instead of 404?
+        # why should this be 500 instead of 404?
+        self.assertEqual(response.status_code, 500)
 
 # have trouble passing in the data
+# is it because of the way the URL is invoked?
 # create user
     # def test_new_user(self):
     #     data = {
@@ -34,6 +38,7 @@ class TestUsers(unittest.TestCase):
             'password': 'password'}
         response = requests.put(self.URL + '/1', json=data)
         self.assertEqual(response.status_code, 200)
+
     def test_update_user_not_found(self):
         data = {
             'name': 'name',
@@ -45,9 +50,60 @@ class TestUsers(unittest.TestCase):
     def test_delete_user_found(self):
         response = requests.delete(self.URL + '/users/1')
         self.assertEqual(response.status_code, 404)
+
     def test_delete_user_not_found(self):
         response = requests.delete(self.URL + '/users/9999')
         self.assertEqual(response.status_code, 404)
+
+
+class TestUserProjects(unittest.TestCase):
+    URL = 'http://127.0.0.1:5000/users'
+
+# get all user's projects
+    def test_user_projects(self):
+        response = requests.get(self.URL + '/1/projects')
+        self.assertEqual(response.status_code, 200)
+
+# create a user project
+    # def test_new_user_project(self):
+    #     data = {
+    #         'name': 'name',
+    #         'password': 'password'}
+    #     response = requests.post(self.URL + '/1/projects', json=data)
+    #     self.assertEqual(response.status_code, 200)
+
+# update user project
+    def test_update_user_project_found(self):
+        data = {
+            'name': 'name',
+            'password': 'password'}
+        response = requests.put(self.URL + '/1/projects/1', json=data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_user_project_not_found(self):
+        data = {
+            'name': 'name',
+            'password': 'password'}
+        response = requests.put(self.URL + '/1/projects/9999', json=data)
+        self.assertEqual(response.status_code, 404)
+
+# delete user project
+    def test_delete_user_project_found(self):
+        response = requests.delete(self.URL + '/1/projects/1')
+        self.assertEqual(response.status_code, 404)
+
+    def test_delete_user_project_not_found(self):
+        response = requests.delete(self.URL + '/1/projects/9999')
+        self.assertEqual(response.status_code, 404)
+
+
+class TestUserTasks(unittest.TestCase):
+    URL = 'http://127.0.0.1:5000/users'
+
+# get all user's tasks
+    def test_user_tasks(self):
+        response = requests.get(self.URL + '/1/tasks')
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == '__main__':
