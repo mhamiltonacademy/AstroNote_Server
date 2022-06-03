@@ -10,8 +10,8 @@ def test():
         name = 'ranffi',
         password = 'password'
     )
-    jasmine = Engineer(
-        name = 'jasmine',
+    jazmin = Engineer(
+        name = 'jazmin',
         password = 'password'
     )
 
@@ -43,7 +43,7 @@ def test():
         deadline = None,
         priority = 2,
         progress = 1,
-        engineer = jasmine,
+        engineer = jazmin,
         project = project
     )
     task3 = Task(
@@ -56,9 +56,9 @@ def test():
         project = project
     )
  
-    db.session.add_all([ranffi,jasmine,quiyet,jonathan,project,task1,task2,task3])
+    db.session.add_all([ranffi,jazmin,quiyet,jonathan,project,task1,task2,task3])
     ranffi.projects.append(project)
-    jasmine.projects.append(project)
+    jazmin.projects.append(project)
     quiyet.projects.append(project)
     jonathan.projects.append(project)
     db.session.commit()
