@@ -22,6 +22,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(response.status_code, 500)
 
 # have trouble passing in the data
+# is it because of the way the URL is invoked?
 # create user
     # def test_new_user(self):
     #     data = {
