@@ -1,6 +1,6 @@
 from .. import db
 from flask import Blueprint, jsonify, request
-from ..models import Project, Task, Engineer
+from ..models import Project, Task
 
 projects = Blueprint('projects', __name__)
 
